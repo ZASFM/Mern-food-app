@@ -16,6 +16,11 @@ mongoose.set('strictQuery',true);
 app.use('/api/v1/auth',AuthRouter);
 app.use('/api/v1/foodCategory',foodCategoryRouter);
 app.use('/api/v1/foodItems',foodItemsRouter);
+app.use((err,req,res,next)=>{
+   const statusCode=err.statusCode||500;
+   const msg=err.msg||'Something went wrong, please try again later';
+   res.status(statusCode).json({success:false,msg});
+})
 
 const start=async()=>{
    try{
