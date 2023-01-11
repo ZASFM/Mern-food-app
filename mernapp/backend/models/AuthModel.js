@@ -2,9 +2,13 @@ const mongoose=require('mongoose');
 const bcryptjs=require('bcryptjs');
 
 const AuthSchema=mongoose.Schema({
-   username:{
+   name:{
       type:String,
       required:[true,'Username is required']
+   },
+   location:{
+      type:String,
+      required:[true,'Location is required']
    },
    email:{
       type:String,
@@ -14,6 +18,10 @@ const AuthSchema=mongoose.Schema({
    password:{
       type:String,
       required:[true,'Password is required']
+   },
+   date:{
+      type:Date,
+      default:Date.now
    }
 })
 
