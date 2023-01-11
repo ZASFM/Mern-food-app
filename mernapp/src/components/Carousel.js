@@ -1,12 +1,12 @@
 const Carousel = () => {
    return (
       <div>
-         <div id="carouselExampleControls" className="carousel slide" data-bs-ride="carousel">
-            <div className="carousel-inner" id="carousel">
+         <div id="carouselExampleControls" className="carousel slide" data-bs-ride="carousel" style={{objectFit:"contain !important"}}>
+            <div className="carousel-inner" id="carousel" >
                <div className="carousel-caption" style={{"zIndex":"10"}}>
                   <form className="d-flex">
                      <input className="form-control me-2" type="search" placeholder="Search" aria-label="Search" />
-                     <button className="btn btn-outline-success" type="submit">Search</button>
+                     <button className="btn btn-outline-success" type="submit" style={{backgroundColor:"black"}}>Search</button>
                   </form>
                </div>
                <div className="carousel-item active">
