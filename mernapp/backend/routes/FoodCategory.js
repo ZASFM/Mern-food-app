@@ -1,7 +1,7 @@
 const express=require('express');
 const router=express.Router();
-const {createCategory}=require('../controllers/foodCategory');
+const {createCategory,getCategories}=require('../controllers/foodCategory');
 
-router.route('/').post(createCategory);
+router.route('/').post(createCategory).get(getCategories);
 
 module.exports=router;

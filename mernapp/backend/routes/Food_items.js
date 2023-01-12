@@ -1,7 +1,7 @@
 const express=require('express');
 const router=express.Router();
-const {createItems}=require('../controllers/foodItems');
+const {createItems,getItems}=require('../controllers/foodItems');
 
-router.route('/').post(createItems);
+router.route('/').post(createItems).get(getItems);
 
 module.exports=router;

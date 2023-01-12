@@ -12,6 +12,17 @@ const createItems=async(req,res,next)=>{
    }
 }
 
+const getItems=async(req,res,next)=>{
+   try{
+      const items=await foodItems.find();
+      res.status(200).json({success:true,items});
+   }
+   catch(err){
+      next(createError(400,'Could not get food items'));
+   }
+}
+
 module.exports={
-   createItems
+   createItems,
+   getItems
 }

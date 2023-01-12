@@ -1,12 +1,14 @@
-const Card = () => {
+const Card = ({foodName,options,imgSrc}) => {
+   let pickOptions=options[0];
+   let priceOptions=Object.keys(pickOptions);
+
    return (
       <div>
          <div>
             <div class="card mt-3" style={{ "width": "18rem", "maxHeight": "360px" }}>
-               <img class="card-img-top" src="..." alt="Card image cap" />
-               <div class="card-body">
-                  <h5 class="card-title">Card title</h5>
-                  <p class="card-text">Text</p>
+               <img class="card-img-top" src={imgSrc} alt="food" />
+               <div class="card-body"> 
+                  <h5 class="card-title">{foodName}</h5>
                   <div className="container w-100">
                      <select className="m-2 h-100 bg-success rounded">
                         {Array.from(Array(6), (e, i) => {
@@ -21,8 +23,15 @@ const Card = () => {
                         })}
                      </select>
                      <select className="m-2 h-100 bg-success rounded">
-                        <option value="half">Half</option>
-                        <option value="full">Full</option>
+                        {priceOptions.map(option=>{
+                           return (
+                              <option key={option} value={option}>
+                                 {option}
+                              </option>
+                           )
+                        })}
+{/*                         <options>Full</options>
+                        <options>Half</options> */}
                      </select>
                      <div className="d-inline h-100 fs-5">
                         Total price
