@@ -6,12 +6,14 @@ const AuthRouter=require('./routes/Auth');
 const mongoose=require('mongoose');
 const foodCategoryRouter=require('./routes/FoodCategory');
 const foodItemsRouter=require('./routes/Food_items');
+const cookieParser=require('cookie-parser');
 
 const app=express();
 const PORT=process.env.PORT||8000;
 
 app.use(express.json());
 app.use(cors());
+app.use(cookieParser());
 mongoose.set('strictQuery',true);
 app.use('/api/v1/auth',AuthRouter);
 app.use('/api/v1/foodCategory',foodCategoryRouter);

@@ -30,4 +30,9 @@ AuthSchema.pre('save',async function(){
    this.password=await bcryptjs.hash(this.password,salt);
 })
 
+AuthSchema.methods.comparePassword=async function(inputPassword){
+   const isPasswordCorrect=await bcryptjs.compare(inputPassword,this.password);
+   return isPasswordCorrect;
+}
+
 module.exports=mongoose.model('AuthSchema',AuthSchema);
