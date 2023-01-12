@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useState } from "react";
 
 const Signup = () => {
@@ -19,6 +19,7 @@ const Signup = () => {
       })
    }
 
+   const navigate=useNavigate();
    const handleSubmit=async(e)=>{
       e.preventDefault();
       try{
@@ -42,7 +43,7 @@ const Signup = () => {
                password:"",
                geoLocation:"",
             })
-            console.log(data);
+            navigate('/login');
          }
       }
       catch(err){

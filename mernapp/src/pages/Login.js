@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { Link, useNavigate} from "react-router-dom";
+import { useAuthProvider } from "../contexts/authContext";
 
 const Login = () => {
    const [credentials, setCredential] = useState({
@@ -7,6 +8,7 @@ const Login = () => {
       password: "",
    })
    const [error,setError]=useState('');
+   const {loading,dispatch}=useAuthProvider();
 
    const handleChange = (e) => {
       const { value, name } = e.target;
@@ -21,6 +23,7 @@ const Login = () => {
    const navigate=useNavigate();
    const handleSubmit = async (e) => {
       e.preventDefault();
+      dispatch({type:'LOGIN_STARTED'})
       try {
          const resp = await fetch('http://localhost:5000/api/v1/auth/login', {
             method: 'POST',
@@ -34,6 +37,9 @@ const Login = () => {
          })
          const data = await resp.json();
          if (data.success) {
+            console.log(data.token);
+            dispatch({type:'LOGIN_SUCCESSFUL',payload:data.user});
+            localStorage.setItem('token',data.token);
             setCredential(
                {      
                   email: "",
@@ -46,6 +52,8 @@ const Login = () => {
          }
       }
       catch (err) {
+         dispatch({type:'LOGIN_FAILED',payload:err})
+         localStorage.clear();
          console.log(err);
       }
    }
