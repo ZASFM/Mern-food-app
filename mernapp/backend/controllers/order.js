@@ -1,4 +1,5 @@
 const Order=require('../models/OrderModel');
+const createError=require('../middlewares/createError');
 
 const postOrder=async(req,res,next)=>{
    let data=req.body.order_data;
@@ -14,7 +15,7 @@ const postOrder=async(req,res,next)=>{
          res.status(200).json({success:true});
       }
       catch(err){
-         next(400,'Could not create user order data');
+         next(createError(400,'Could not create user order data'));
       }
    }else{
       try{
@@ -22,11 +23,21 @@ const postOrder=async(req,res,next)=>{
          res.status(200).json({success:true});
       }
       catch(err){
-         next(400,'Could not add to client order')
+         next(createError(400,'Could not add to client order'))
       }
    }
 }
 
+const getMyOrder=async(req,res,next)=>{
+   try{
+      const myOrder=await Order.findOne({'email':req.body.email});
+      res.status(200).json({success:true,orderData:myOrder});
+   }
+   catch(err){
+      next(createError(400,'Could not get personal data'));
+   }
+}
 module.exports={
-   postOrder
+   postOrder,
+   getMyOrder
 }

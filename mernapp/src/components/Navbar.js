@@ -43,7 +43,7 @@ const Navbar = () => {
                      {localStorage.getItem('token') ?
                         <li className="nav-item">
                            <Link className="nav-link active fs-5" aria-current="page"
-                              to="/"
+                              to="/myOrders"
                            >
                               My orders
                            </Link>

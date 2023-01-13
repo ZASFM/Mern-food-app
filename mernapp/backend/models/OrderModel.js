@@ -10,8 +10,6 @@ const OrderSchema=mongoose.Schema({
       type:Array,
       required:true
    }
-}/*, {
-   collection:'orders'
-} */)
+})
 
 module.exports=mongoose.model('OrderSchema',OrderSchema);
