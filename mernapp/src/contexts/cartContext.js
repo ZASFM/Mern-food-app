@@ -14,6 +14,19 @@ const reducer=(state,action)=>{
             price:action.price,
             img:action.img
          }]
+      case 'REMOVE':
+         let newCart=[...state];
+         newCart.splice(action.index,1);
+         return newCart;
+      case 'UPDATE':
+         let arr=[...state];
+         arr.find((item,index)=>{
+            if(item.id===action.id){
+               arr[index]={...item,qty:parseInt(action.qty)+item.qty,price:action.price+item.price}
+            }
+            return arr;
+         })
+         return arr;
       default:
          return state; 
    }
