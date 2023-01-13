@@ -63,9 +63,10 @@ const Home = () => {
                            return (
                               <div key={filterItems._id} className="col-12 col-md-6 col-lg-3">
                                  <Card
-                                    foodName={filterItems.name}
+                                    //foodName={filterItems.name}
+                                    foodItem={filterItems}
                                     options={filterItems.option}
-                                    imgSrc={filterItems.img}
+                                    //imgSrc={filterItems.img}
                                  />
                               </div>
                            )
