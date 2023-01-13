@@ -1,9 +1,15 @@
 import { Link,useNavigate } from "react-router-dom";
 import { useAuthProvider } from "../contexts/authContext";
+import Badge from 'react-bootstrap/Badge';
+import { useState } from "react";
+import Modal from '../Modal';
+import Cart from "./Cart";
+import { useCart } from "../contexts/cartContext";
 
 const Navbar = () => {
+   const [cartView,setCartView]=useState(false);
    const {dispatch}=useAuthProvider();
-
+   const data=useCart();
    const navigate=useNavigate();
    const handleLogout=()=>{
       localStorage.removeItem('token');
@@ -59,10 +65,14 @@ const Navbar = () => {
                         </Link>
                      </div> : 
                      <div>
-                        <div className="btn bg-white text-success mx-2">
-                        My cart</div>
+                        <div className="btn bg-white text-success mx-2" onClick={()=>setCartView(true)}>
+                           My cart{" "}
+                           <Badge pill bg="danger">{data.length}</Badge>
+                        </div>
+                        {cartView?<Modal onClose={()=>setCartView(false)}><Cart/></Modal>:'' }
                         <div className="btn bg-white text-danger mx-2" onClick={handleLogout}>
-                        Log out</div>
+                           Log out
+                        </div>
                      </div>}
                </div>
             </div>
