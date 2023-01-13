@@ -22,6 +22,7 @@ const Card = ({foodItem,options}) => {
          size:size,
          img:foodItem.img,
       })
+      //await console.log(data);
    }
 
    return (
