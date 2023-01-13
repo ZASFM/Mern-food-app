@@ -40,6 +40,7 @@ const Login = () => {
             console.log(data.token);
             dispatch({type:'LOGIN_SUCCESSFUL',payload:data.user});
             localStorage.setItem('token',data.token);
+            localStorage.setItem('email',credentials.email);
             setCredential(
                {      
                   email: "",

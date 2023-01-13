@@ -13,6 +13,25 @@ const Cart = () => {
       )
    }
 
+   const handleCheckOut=async()=>{
+      const userEmail=localStorage.getItem('email');
+      const resp=await fetch('http://localhost:5000/api/v1/orderData',{
+         method:'POST',
+         headers:{
+            'Content-Type':'application/json',
+         },
+         body:JSON.stringify({
+            order_data:data,
+            email:userEmail,
+            order_date:new Date().toDateString()
+         })
+      })
+      const respP=await resp.json();
+      if(respP.success){
+         dispatch({type:'DROP'})
+      }
+   }
+
    let totalPrice=data.reduce((total,food)=>food.price+total,0)
    return (
       <div>
@@ -42,7 +61,7 @@ const Cart = () => {
             </table>
             {<div><h1 className='fs-2'>Total Price: {totalPrice}$</h1></div> }
             <div>
-               <button className='btn bg-success mt-5 '> Check Out </button>
+               <button className='btn bg-success mt-5' onClick={handleCheckOut}> Check Out </button>
             </div>
          </div>
 

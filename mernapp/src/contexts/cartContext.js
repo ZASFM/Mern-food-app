@@ -27,6 +27,9 @@ const reducer=(state,action)=>{
             return arr;
          })
          return arr;
+      case 'DROP':
+         let tempArr=[];
+         return tempArr;
       default:
          return state; 
    }
