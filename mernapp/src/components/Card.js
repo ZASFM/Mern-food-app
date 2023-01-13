@@ -6,7 +6,7 @@ const Card = ({foodName,options,imgSrc}) => {
       <div>
          <div>
             <div class="card mt-3" style={{ "width": "18rem", "maxHeight": "360px" }}>
-               <img class="card-img-top" src={imgSrc} alt="food" />
+               <img class="card-img-top" src={imgSrc} alt="food"  style={{height:"200px",objectFit:"fill"}}/>
                <div class="card-body"> 
                   <h5 class="card-title">{foodName}</h5>
                   <div className="container w-100">
