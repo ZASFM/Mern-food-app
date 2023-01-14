@@ -4,6 +4,7 @@ import {FaTrashAlt} from 'react-icons/fa';
 const Cart = () => {
    const data=useCart();
    const dispatch=useDispatch();
+   console.log([...data]);
 
    if(data.length===0){
       return (
@@ -30,6 +31,26 @@ const Cart = () => {
       if(respP.success){
          dispatch({type:'DROP'})
       }
+   }
+
+   const handlePayment=()=>{
+      fetch('http://localhost:5000/create-session-checkout',{
+         method:'POST',
+         headers:{
+            'Content-Type':'application/json',
+         },
+         body:JSON.stringify({
+            items:data
+         })
+      }).then(res=>{
+         if(res.ok) return res.json();
+         return res.json().then(json=>Promise.reject(json));
+      }).then(({url})=>{
+         console.log(url);
+         window.location=url;
+      }).catch(err=>{
+         console.log(err);
+      })
    }
 
    let totalPrice=data.reduce((total,food)=>food.price+total,0)
@@ -62,6 +83,7 @@ const Cart = () => {
             {<div><h1 className='fs-2'>Total Price: {totalPrice}$</h1></div> }
             <div>
                <button className='btn bg-success mt-5' onClick={handleCheckOut}> Check Out </button>
+               <button className='btn bg-success mt-5' onClick={handlePayment}> Pay </button>
             </div>
          </div>
 
