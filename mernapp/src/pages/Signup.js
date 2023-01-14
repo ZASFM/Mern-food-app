@@ -50,6 +50,29 @@ const Signup = () => {
          console.log(err);
       }
    }
+
+   const trackLocation=()=>{
+      
+      const successCallBack=(position)=>{
+         const { latitude, longitude } = position.coords;
+         fetch(`https://api.opencagedata.com/geocode/v1/json?q=${latitude}+${longitude}&key=64fef5748dd54f26999838b54f723f4a`)
+            .then(resp=>resp.json())
+            .then(data=>setCredential(preVal=>{
+               return {
+                  ...preVal,
+                  geoLocation:data.results[0].formatted
+               }
+            }))
+      }     
+
+      const errorCallBack=(err)=>{
+         console.log(err);
+      }
+
+         navigator.geolocation
+           .getCurrentPosition(successCallBack, errorCallBack);
+   }
+
    return (
       <>
          <div className="container">
@@ -70,6 +93,7 @@ const Signup = () => {
                <div className="mb-3">
                   <label htmlFor="location" className="form-label">Address</label>
                   <input type="text" className="form-control" id="location" name="geoLocation" onChange={handleChange} value={credentials.geoLocation}/>
+                  <button onClick={trackLocation}>Locate me</button>
                </div>
                <button type="submit" className="m-3 btn btn-success">Create account</button>
                <Link className="m-3 btn btn-danger" to="/login">Login if you already have an account</Link>

@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { Link, useNavigate} from "react-router-dom";
 import { useAuthProvider } from "../contexts/authContext";
+import {FaArrowLeft} from 'react-icons/fa';
 
 const Login = () => {
    const [credentials, setCredential] = useState({
@@ -61,7 +62,8 @@ const Login = () => {
    return (
       <>
          <div className="container">
-            <div className="bg-danger m-3 w-100">{error && error}</div>
+            <Link to="/"><FaArrowLeft/> Back home</Link>
+            <div className="bg-danger m-3 w-100 text-center w-100 m-auto mt-3">{error && error}</div>
             <form onSubmit={handleSubmit}>
                <div className="mb-3">
                   <label htmlFor="email" className="form-label">Email address</label>
