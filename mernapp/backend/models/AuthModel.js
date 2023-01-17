@@ -19,6 +19,10 @@ const AuthSchema=mongoose.Schema({
       type:String,
       required:[true,'Password is required']
    },
+   for:{
+      type:String,
+      required:[true,'Account usage is required']
+   },
    date:{
       type:Date,
       default:Date.now
