@@ -18,11 +18,13 @@ const checkout=async(req,res,next)=>{
                quantity:item.qty,
             }
          }),
+         success_url:'http://localhost:3000',
+         cancel_url:'http://localhost:3000',
       })
-      //the url is the ({url})
       res.json({url:session.url})
    }
    catch(err){
+      console.log(err);
       next(createError(400,'Could not perform payment'))
    }
 }
