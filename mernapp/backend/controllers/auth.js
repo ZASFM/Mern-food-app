@@ -1,17 +1,24 @@
 const Auth=require('../models/AuthModel');
 const createError=require('../middlewares/createError');
-const {validationResult}=require('express-validator');
 const jwt=require('jsonwebtoken');
 const bcryptjs=require('bcryptjs');
+const transporter=require('../middlewares/nodeEmail');
 
 const register=async(req,res,next)=>{
-   const errors = validationResult(req);
-    if (!errors.isEmpty()) {
-      return res.status(400).json({ errors: errors.array() });
-   }
    try{
       const user=new Auth({...req.body});
       await user.save();
+      try{
+         await transporter.sendMail({
+            from: '"Registration confirmation message" <shafi.bahrami.2015@gmail.com>', 
+            to: user.email, 
+            subject: "Registration successful✔", 
+            html: "<b>Welcome buddy</b>", 
+          });
+      }
+      catch(err){
+         console.log(err);
+      }
       res.status(200).json({success:true,user});
    }
    catch(err){
