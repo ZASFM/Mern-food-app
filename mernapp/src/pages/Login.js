@@ -2,7 +2,6 @@ import { useState } from "react";
 import { Link, useNavigate} from "react-router-dom";
 import { useAuthProvider } from "../contexts/authContext";
 import {FaArrowLeft} from 'react-icons/fa';
-
 const Login = () => {
    const [credentials, setCredential] = useState({
       email: "",

@@ -1,5 +1,8 @@
 import { useCart, useDispatch } from "../contexts/cartContext";
 import {FaTrashAlt} from 'react-icons/fa';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
 
 const Cart = () => {
    const data=useCart();
@@ -31,10 +34,21 @@ const Cart = () => {
       if(respP.success){
          dispatch({type:'DROP'})
       }
+      toast.success('Items successfully added to your order', {
+         position: "top-right",
+         autoClose: 3000,
+         hideProgressBar: false,
+         closeOnClick: true,
+         pauseOnHover: true,
+         draggable: true,
+         progress: undefined,
+         theme: "light",
+      });
    }
 
    const handlePayment=()=>{
-      fetch('http://localhost:5000/create-session-checkout',{
+      console.log(data);
+      fetch('http://localhost:5000/api/v1/create-session-checkout',{
          method:'POST',
          headers:{
             'Content-Type':'application/json',
@@ -86,9 +100,19 @@ const Cart = () => {
                <button className='btn bg-success mt-5' onClick={handlePayment}> Pay </button>
             </div>
          </div>
+         <ToastContainer
+               position="top-right"
+               autoClose={3000}
+               hideProgressBar={false}
+               newestOnTop={false}
+               closeOnClick
+               rtl={false}
+               pauseOnFocusLoss
+               draggable
+               pauseOnHover
+               theme="light"
 
-
-
+            />
       </div>
    )
 }
