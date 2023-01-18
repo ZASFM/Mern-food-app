@@ -24,6 +24,9 @@ const AuthSchema=mongoose.Schema({
       type:String,
       required:[true,'Account usage is required']
    },
+   jwt:{
+      type:[]
+   },
    date:{
       type:Date,
       default:Date.now
