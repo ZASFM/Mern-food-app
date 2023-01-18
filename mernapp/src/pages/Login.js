@@ -37,10 +37,27 @@ const Login = () => {
          })
          const data = await resp.json();
          if (data.success) {
-            console.log(data.token);
+            //console.log(data.token);
             dispatch({type:'LOGIN_SUCCESSFUL',payload:data.user});
             localStorage.setItem('token',data.token);
             localStorage.setItem('email',credentials.email);
+            if(!localStorage.getItem('mongoJWT')){
+               try{
+                  await fetch(`http://localhost:5000/api/v1/users/addJWT/${credentials.email}`,{
+                     method:'PUT',
+                     headers:{
+                        'Content-Type':'application/json'
+                     },
+                     body:JSON.stringify({
+                        jwtToken:localStorage.getItem('token')
+                     })
+                  });
+                  localStorage.setItem('mongoJWT',JSON.stringify('true'))
+               }
+               catch(err){
+                  console.log(err);
+               }
+            }
             setCredential(
                {      
                   email: "",
