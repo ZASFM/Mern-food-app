@@ -17,6 +17,7 @@ const Navbar = () => {
    const handleLogout=()=>{
       localStorage.removeItem('token');
       localStorage.removeItem('user');
+      localStorage.removeItem('mongoJWT');
       dispatch({type:'LOGOUT'})
       navigate('/login');
       setIsOpen(false);
