@@ -5,9 +5,12 @@ import { useState } from "react";
 import Modal from '../Modal';
 import Cart from "./Cart";
 import { useCart } from "../contexts/cartContext";
+import {RiAccountCircleLine} from 'react-icons/ri';
+import Dropdown from "./Dropdown";
 
 const Navbar = () => {
    const [cartView,setCartView]=useState(false);
+   const [isOpen,setIsOpen]=useState(false);
    const {dispatch}=useAuthProvider();
    const data=useCart();
    const navigate=useNavigate();
@@ -16,8 +19,17 @@ const Navbar = () => {
       localStorage.removeItem('user');
       dispatch({type:'LOGOUT'})
       navigate('/login');
+      setIsOpen(false);
    } 
 
+   const handleOpen=()=>{
+      setIsOpen(preVal=>!preVal);
+   }
+
+   const handleProfile=()=>{
+      navigate('/profile');
+      setIsOpen(false);
+   }
    return (
       <div>
          <nav className="navbar navbar-expand-lg navbar-dark bg-success">
@@ -70,8 +82,15 @@ const Navbar = () => {
                            <Badge pill bg="danger">{data.length}</Badge>
                         </div>
                         {cartView?<Modal onClose={()=>setCartView(false)}><Cart/></Modal>:'' }
-                        <div className="btn bg-white text-danger mx-2" onClick={handleLogout}>
-                           Log out
+                        <div className="btn bg-white text-danger mx-2 dropdown">
+                           <RiAccountCircleLine onClick={handleOpen} />
+                           {isOpen?<ul className="menu"><Dropdown
+                              open={isOpen}
+                              menu={[
+                                 <button onClick={handleProfile}>Profile</button>,
+                                 <button onClick={handleLogout}>Logout</button>
+                              ]}
+                           /></ul>:null}
                         </div>
                      </div>}
                </div>

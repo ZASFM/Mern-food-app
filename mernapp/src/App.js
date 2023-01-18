@@ -8,6 +8,7 @@ import '../node_modules/bootstrap/dist/js/bootstrap.bundle.min.js'
 import { CartProvider } from "./contexts/cartContext";
 import MyOrder from "./components/MyOrder";
 import ProtectedRoute from "./utils/ProtectedRoute";
+import Profile from "./pages/Profile";
 
 function App() {
    return (
@@ -30,6 +31,14 @@ function App() {
                element={<ProtectedRoute>
                   <MyOrder/>
                </ProtectedRoute>}
+            />
+            <Route
+               path="/profile"
+               element={
+                  <ProtectedRoute>
+                     <Profile/>
+                  </ProtectedRoute>
+               }
             />
          </Routes>
       </CartProvider>
