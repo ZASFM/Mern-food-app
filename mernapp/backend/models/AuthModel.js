@@ -2,6 +2,10 @@ const mongoose=require('mongoose');
 const bcryptjs=require('bcryptjs');
 
 const AuthSchema=mongoose.Schema({
+   image:{
+      type:String,
+      default:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQzmq-qZ59s8d_kkqQ0ym3w2PuGuvKR6ZNB5AdLKFqA2Q&s'
+   },
    name:{
       type:String,
       required:[true,'Username is required']

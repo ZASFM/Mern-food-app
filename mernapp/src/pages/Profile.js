@@ -1,6 +1,8 @@
 import { useState, useEffect } from "react"
 import { useNavigate } from "react-router-dom";
 import { useAuthProvider } from "../contexts/authContext";
+import { Link } from "react-router-dom";
+import {FaArrowLeft} from 'react-icons/fa';
 
 const Profile = () => {
    const jwt = localStorage.getItem('token');
@@ -15,7 +17,8 @@ const Profile = () => {
                setUser({
                   email:data.user.email,
                   name:data.user.name,
-                  location:data.user.location
+                  location:data.user.location,
+                  image:data.user.image,
                });
             }
          }
@@ -81,10 +84,29 @@ const Profile = () => {
       }
    }
 
+   const setProfile=(e)=>{
+      setUser(preVal=>{
+         return {
+            ...preVal,
+            image:URL.createObjectURL((e.target.files[0]))
+         }
+      })
+   }
+
    return (
       <div>
+         <Link to="/"><FaArrowLeft/> Back</Link>
          {user !== {} ?
-            <form onSubmit={handleSubmit}>
+            <form onSubmit={handleSubmit} className="form-el">
+               <div>
+               <div>
+                  <div className="profile-pic-container">
+                     <img src={user.image?user.image:null} alt="profile" className="profile-pic"/>
+                  </div>
+                  <input type="file" onChange={setProfile}/>
+               </div>
+               </div>
+               <div className="profile-el-2">
                <div className="mb-3">
                   <label htmlFor="name" className="form-label">Username</label>
                   <input type="text" className="form-control" id="name" name="name" onChange={handleChange} value={user.name} />
@@ -101,6 +123,7 @@ const Profile = () => {
                </div>
                <button className="m-3 btn btn-success" type="submit" onClick={updateUser}>Save</button>
                <button className="m-3 btn btn-success" type="submit" onClick={deleteUser}>Delete</button>
+               </div>
             </form> :
             <div>Sorry, something bad occurred, please try again later</div>}
       </div>

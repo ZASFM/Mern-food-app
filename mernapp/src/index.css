@@ -59,3 +59,30 @@ code {
   font: inherit;
   cursor: pointer;
 }
+
+.profile-pic-container{
+  width:250px;
+  height: 250px;
+  border-radius: 50%;
+  margin:15px;
+  border:2px solid black;
+}
+
+.profile-pic{
+   width:100%;
+   height: 100%;
+   border-radius: 50%;
+   object-fit: cover;
+}
+
+.form-el{
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  gap:50px;
+  margin-top: 20vh;
+}
+
+.profile-el-2{
+  width:60%
+}
