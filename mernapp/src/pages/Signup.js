@@ -119,7 +119,8 @@ const Signup = () => {
 
    return (
       <>
-         <div className="container">
+         <div className="container mt-5 ">
+            <div className="m-3">Step {page+1}/3</div>
             <form onSubmit={handleSubmit}>
                {conditionalComponent()}
                <div className="d-flex justify-content-center mt-3">
