@@ -1,35 +1,31 @@
-import { Link,useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useAuthProvider } from "../contexts/authContext";
 import Badge from 'react-bootstrap/Badge';
 import { useState } from "react";
 import Modal from '../Modal';
 import Cart from "./Cart";
 import { useCart } from "../contexts/cartContext";
-import {RiAccountCircleLine} from 'react-icons/ri';
-import Dropdown from "./Dropdown";
+import { RiAccountCircleLine } from 'react-icons/ri';
+import Dropdown from 'react-bootstrap/Dropdown';
+import DropdownButton from 'react-bootstrap/DropdownButton';
 
 const Navbar = () => {
-   const [cartView,setCartView]=useState(false);
-   const [isOpen,setIsOpen]=useState(false);
-   const {dispatch}=useAuthProvider();
-   const data=useCart();
-   const navigate=useNavigate();
-   const handleLogout=()=>{
+   const [cartView, setCartView] = useState(false);
+   const { dispatch } = useAuthProvider();
+   const data = useCart();
+   const navigate = useNavigate();
+   const handleLogout = (e) => {
+      e.preventDefault();
       localStorage.removeItem('token');
       localStorage.removeItem('user');
       localStorage.removeItem('mongoJWT');
-      dispatch({type:'LOGOUT'})
+      dispatch({ type: 'LOGOUT' })
       navigate('/login');
-      setIsOpen(false);
-   } 
-
-   const handleOpen=()=>{
-      setIsOpen(preVal=>!preVal);
    }
 
-   const handleProfile=()=>{
+   const handleProfile = (e) => {
+      e.preventDefault();
       navigate('/profile');
-      setIsOpen(false);
    }
    return (
       <div>
@@ -76,22 +72,19 @@ const Navbar = () => {
                         >
                            Signup
                         </Link>
-                     </div> : 
+                     </div> :
                      <div>
-                        <div className="btn bg-white text-success mx-2" onClick={()=>setCartView(true)}>
+                        <div className="btn bg-white text-success mx-2" onClick={() => setCartView(true)}>
                            My cart{" "}
                            <Badge pill bg="danger">{data.length}</Badge>
                         </div>
-                        {cartView?<Modal onClose={()=>setCartView(false)}><Cart/></Modal>:'' }
-                        <div className="btn bg-white text-danger mx-2 dropdown">
-                           <RiAccountCircleLine onClick={handleOpen} />
-                           {isOpen?<ul className="menu"><Dropdown
-                              open={isOpen}
-                              menu={[
-                                 <button onClick={handleProfile}>Profile</button>,
-                                 <button onClick={handleLogout}>Logout</button>
-                              ]}
-                           /></ul>:null}
+                        {cartView ? <Modal onClose={() => setCartView(false)}><Cart /></Modal> : ''}
+                        <div className="btn mx-2 dropdown">
+                           <DropdownButton id="dropdown-basic-button" title={<RiAccountCircleLine/>} >
+                              <Dropdown.Item onClick={handleProfile}>My profile</Dropdown.Item>
+                              <Dropdown.Divider />
+                              <Dropdown.Item onClick={handleLogout}>Logout</Dropdown.Item>
+                           </DropdownButton>
                         </div>
                      </div>}
                </div>

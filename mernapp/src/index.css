@@ -19,6 +19,7 @@ code {
 
 .dropdown {
   position: relative;
+  background-color: green;
 }
 
 .menu {
