@@ -1,6 +1,7 @@
 const createError=require('../middlewares/createError');
 const Restaurant=require('../models/RestaurantModel');
 const Auth=require('../models/AuthModel');
+const Rating=require('../models/RatingsModal');
 
 const createRestaurant=async(req,res,next)=>{
    try{
@@ -47,8 +48,23 @@ const getRestaurants=async(req,res,next)=>{
    }
 }
 
+const getRestaurantRatings=async(req,res,next)=>{
+   const {id}=req.params;
+   try{
+      const restaurant=await Restaurant.findById(id);
+      const ratingLists=await Promise.all(restaurant.ratings.map(rating=>{
+         return Rating.findById(rating.id);
+      }))
+      res.status(200).json({success:true,ratingLists});
+   }
+   catch(err){
+      next(createError());
+   }
+}
+
 module.exports={
    getRestaurant,
    getRestaurants,
-   createRestaurant
+   createRestaurant,
+   getRestaurantRatings
 }

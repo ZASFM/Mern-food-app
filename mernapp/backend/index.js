@@ -11,6 +11,7 @@ const orderRouter=require('./routes/Order');
 const paymentRouter=require('./routes/Payment');
 const userRouter=require('./routes/User');
 const restaurantRouter=require('./routes/Restaurant');
+const ratingRouter=require('./routes/Rating');
 
 const app=express();
 const PORT=process.env.PORT||8000;
@@ -26,6 +27,7 @@ app.use('/api/v1/orderData',orderRouter);
 app.use('/api/v1/create-session-checkout',paymentRouter);
 app.use('/api/v1/users',userRouter);
 app.use('/api/v1/restaurants',restaurantRouter);
+app.use('/api/v1/ratings',ratingRouter);
 app.use((err,req,res,next)=>{
    const statusCode=err.statusCode||500;
    const msg=err.msg||'Something went wrong, please try again later';
