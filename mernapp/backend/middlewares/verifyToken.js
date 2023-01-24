@@ -1,8 +1,8 @@
 const jwt=require('jsonwebtoken');
 
 const verifyToken=async(req,res,next)=>{
-   const token=req.cookies.access_token
-   //console.log('Token: ',token);
+   const token=localStorage.getItem('token');
+   console.log(token);
    next();
 }
 
