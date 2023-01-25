@@ -22,7 +22,7 @@ const createRestaurant=async(req,res,next)=>{
       }
       res.status(200).json({success:true,restaurant});
    }
-   catch(err){
+   catch(err){ 
       next(createError(404,'Could not create restaurant'));
    }
 }

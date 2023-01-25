@@ -49,7 +49,9 @@ const MyRestaurant = () => {
                </div>
                <div>
                   Dishes
-                  <Dishes/>
+                  <Dishes
+                     restaurantId={id}
+                  />
                </div>
                <div>
                   Reviews
