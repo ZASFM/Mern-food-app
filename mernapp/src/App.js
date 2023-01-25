@@ -9,6 +9,10 @@ import { CartProvider } from "./contexts/cartContext";
 import MyOrder from "./components/MyOrder";
 import ProtectedRoute from "./utils/ProtectedRoute";
 import Profile from "./pages/Profile";
+import Member from "./pages/Member";
+import CreateRestaurant from "./pages/res_components/CreateRes";
+import MyRestaurants from "./pages/res_components/MyRes";
+import MyRestaurant from "./pages/res_components/MyRestaurant";
 
 function App() {
    return (
@@ -40,6 +44,44 @@ function App() {
                   </ProtectedRoute>
                }
             />
+            <Route path="/become_a_member">
+               <Route
+                  index
+                  element={
+                     <ProtectedRoute>
+                        <Member/>
+                     </ProtectedRoute>
+                  }
+               />
+               <Route
+                  path="/become_a_member/add_restaurant"
+                  element={
+                     <ProtectedRoute>
+                        <CreateRestaurant/>
+                     </ProtectedRoute>
+                  }
+               />
+               <Route
+                  path="/become_a_member/my_restaurants"
+               >
+                  <Route
+                     index
+                     element={
+                        <ProtectedRoute>
+                           <MyRestaurants/>
+                        </ProtectedRoute>
+                     }
+                  />
+                  <Route
+                     path="/become_a_member/my_restaurants/:id"
+                     element={
+                        <ProtectedRoute>
+                           <MyRestaurant/>
+                        </ProtectedRoute>
+                     }
+                  />
+               </Route>
+            </Route>
          </Routes>
       </CartProvider>
    );

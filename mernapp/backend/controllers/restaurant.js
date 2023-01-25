@@ -23,7 +23,7 @@ const createRestaurant=async(req,res,next)=>{
       res.status(200).json({success:true,restaurant});
    }
    catch(err){
-      next(createError());
+      next(createError(404,'Could not create restaurant'));
    }
 }
 
@@ -34,17 +34,18 @@ const getRestaurant=async(req,res,next)=>{
       res.status(200).json({success:true,restaurant});
    }
    catch(err){
-      next(createError());
+      next(createError(404,'Could not get restaurant'));
    }
 }
 
 const getRestaurants=async(req,res,next)=>{
+   const {email:myEmail}=req.query;
    try{
-      const restaurants=await Restaurant.findOne({email:req.body.email});
+      const restaurants=await Restaurant.find({email:myEmail});
       res.status(200).json({success:true,restaurants})
    }
    catch(err){
-      next(createError());
+      next(createError(404,'Could not get restaurants'));
    }
 }
 
@@ -58,7 +59,7 @@ const getRestaurantRatings=async(req,res,next)=>{
       res.status(200).json({success:true,ratingLists});
    }
    catch(err){
-      next(createError());
+      next(createError(404,'Could not get restaurant ratings'));
    }
 }
 

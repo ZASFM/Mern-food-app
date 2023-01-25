@@ -87,3 +87,12 @@ code {
 .profile-el-2{
   width:60%
 }
+
+.card{
+  transition:all 0.3s ease-in;
+}
+
+.card:hover{
+  transform: scale(1.1);
+}
+

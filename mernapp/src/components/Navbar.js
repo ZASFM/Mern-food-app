@@ -50,13 +50,22 @@ const Navbar = () => {
                         </Link>
                      </li>
                      {localStorage.getItem('token') ?
-                        <li className="nav-item">
-                           <Link className="nav-link active fs-5" aria-current="page"
-                              to="/myOrders"
-                           >
-                              My orders
-                           </Link>
-                        </li> : ''}
+                        <>
+                           <li className="nav-item">
+                              <Link className="nav-link active fs-5" aria-current="page"
+                                 to="/myOrders"
+                              >
+                                 My orders
+                              </Link>
+                           </li>
+                           <li className="nav-item">
+                              <Link className="nav-link active fs-5" aria-current="page"
+                                 to="/become_a_member"
+                              >
+                                 Become a member
+                              </Link>
+                           </li>
+                        </> : ''}
                   </ul>
                   {!localStorage.getItem('token') ?
                      <div className="d-flex">
@@ -80,7 +89,7 @@ const Navbar = () => {
                         </div>
                         {cartView ? <Modal onClose={() => setCartView(false)}><Cart /></Modal> : ''}
                         <div className="btn mx-2 dropdown">
-                           <DropdownButton id="dropdown-basic-button" title={<RiAccountCircleLine/>} >
+                           <DropdownButton id="dropdown-basic-button" title={<RiAccountCircleLine />} >
                               <Dropdown.Item onClick={handleProfile}>My profile</Dropdown.Item>
                               <Dropdown.Divider />
                               <Dropdown.Item onClick={handleLogout}>Logout</Dropdown.Item>
